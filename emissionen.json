@@ -1,0 +1,28 @@
+[
+    { "land": "Deutschland", "unternehmen": "Auto AG", "emissionen": 45.2 },
+    { "land": "USA", "unternehmen": "Energy Inc.", "emissionen": 123.4 },
+    { "land": "China", "unternehmen": "Industrietek", "emissionen": 200.1 },
+    { "land": "Frankreich", "unternehmen": "Énergie Verte", "emissionen": 38.9 },
+    { "land": "Brasilien", "unternehmen": "AgroBio Ltda", "emissionen": 67.3 },
+    { "land": "Indien", "unternehmen": "CoalWorks", "emissionen": 154.0 },
+    { "land": "Kanada", "unternehmen": "NorthOil", "emissionen": 89.2 },
+    { "land": "Russland", "unternehmen": "GazFuture", "emissionen": 172.5 },
+    { "land": "Japan", "unternehmen": "Nippon Steel", "emissionen": 112.7 },
+    { "land": "Australien", "unternehmen": "AussieMining", "emissionen": 98.1 },
+    { "land": "Deutschland", "unternehmen": "GreenLogistik GmbH", "emissionen": 34.8 },
+    { "land": "USA", "unternehmen": "TechCorp", "emissionen": 22.3 },
+    { "land": "China", "unternehmen": "SinoCement", "emissionen": 185.9 },
+    { "land": "Norwegen", "unternehmen": "HydroClean", "emissionen": 12.4 },
+    { "land": "Südafrika", "unternehmen": "CarbonEx", "emissionen": 76.0 },
+    { "land": "Mexiko", "unternehmen": "PetroMex", "emissionen": 93.7 },
+    { "land": "Indonesien", "unternehmen": "PalmOil Ltd.", "emissionen": 88.0 },
+    { "land": "Vereinigtes Königreich", "unternehmen": "UK Energy Co.", "emissionen": 57.1 },
+    { "land": "Italien", "unternehmen": "Fiat Verde", "emissionen": 29.3 },
+    { "land": "Südkorea", "unternehmen": "KTech Manufacturing", "emissionen": 61.4 },
+    { "land": "Spanien", "unternehmen": "SolarEnergía", "emissionen": 19.5 },
+    { "land": "Argentinien", "unternehmen": "Vaca Muerta Corp", "emissionen": 70.6 },
+    { "land": "Ägypten", "unternehmen": "Delta Industries", "emissionen": 49.8 },
+    { "land": "Vietnam", "unternehmen": "VietSteel Co.", "emissionen": 83.2 },
+    { "land": "Türkei", "unternehmen": "AnadoluGas", "emissionen": 58.7 }
+  ]
+  
