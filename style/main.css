@@ -18,8 +18,8 @@ nav a:hover {
   visibility: hidden;
   transform: translateY(10px);
   transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
-  display: block; /* Wichtig, damit Bootstrap es nicht versteckt */
-  position: absolute; /* sicherstellen, dass es nicht das Layout beeinflusst */
+  display: block;
+  position: absolute;
 }
 
 /* Beim Hover: sichtbar + eingeblendet */
@@ -29,3 +29,136 @@ nav a:hover {
   transform: translateY(0);
 }
 
+/* Einheitliches Styling für alle Filterleisten */
+#tableControls .dataTables_length label,
+#tableControls .dataTables_filter label {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0;
+  gap: 0.5rem;
+}
+
+#tableControls select,
+#tableControls input[type="search"] {
+  height: 32px;
+  padding: 0.25rem 0.5rem;
+}
+
+/* Paginierung linksbündig */
+.dataTables_paginate {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.dataTables_paginate a {
+  display: inline-block;
+  padding: 0.375rem 0.75rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: #0d6efd;
+  text-decoration: none;
+  background-color: #fff;
+  border: 1px solid #dee2e6;
+  border-radius: 0.25rem;
+}
+
+.dataTables_paginate a:hover {
+  background-color: #e9ecef;
+}
+
+.dataTables_paginate a.current {
+  background-color: #0d6efd;
+  color: #fff;
+  border-color: #0d6efd;
+  font-weight: bold;
+}
+
+/* Tabellenlayout & Spaltenbreiten */
+#emissionenTabelle {
+  table-layout: fixed;
+  width: 100%;
+}
+
+#emissionenTabelle th,
+#emissionenTabelle td {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0.5rem;
+  vertical-align: middle;
+  border: 1px solid #dee2e6;
+}
+
+/* Spalte 1: Land */
+#emissionenTabelle th:nth-child(1),
+#emissionenTabelle td:nth-child(1) {
+  width: 20%;
+  text-align: left;
+}
+
+/* Spalte 2: Unternehmen */
+#emissionenTabelle th:nth-child(2),
+#emissionenTabelle td:nth-child(2) {
+  width: 50%;
+  text-align: left;
+}
+
+/* Spalte 3: Emissionen */
+#emissionenTabelle th:nth-child(3),
+#emissionenTabelle td:nth-child(3) {
+  width: 30%;
+  text-align: right;
+}
+
+/* Container-Wrapper von DataTables auf volle Breite bringen */
+.dataTables_wrapper {
+  width: 100% !important;
+}
+
+/* Tabelle darf sich voll ausbreiten */
+#emissionenTabelle {
+  display: table;
+  width: 100% !important;
+  table-layout: fixed;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/* Verhindert unsichtbare Ränder durch zu kleine Spalten */
+#emissionenTabelle th,
+#emissionenTabelle td {
+  min-width: 50px;
+}
+
+/* Lokale Navigation – standardmäßig links */
+#lokaleNavigation {
+  position: fixed;
+  top: 120px;
+  left: 20px;
+  width: 200px;
+  background: #f8f9fa;
+  padding: 0.75rem 1rem;
+  border: 1px solid #dee2e6;
+  border-radius: 0.5rem;
+  z-index: 1030;
+}
+
+
+/* RTL-Version: Navigation nach rechts verschieben */
+[dir="rtl"] #lokaleNavigation {
+  left: auto;
+  right: 20px;
+  text-align: right;
+}
+
+#emissionen-ranking-wrapper {
+  min-height: 100vh;
+  padding-top: 4rem;
+  margin-top: 4rem;
+  background-color: #f9f9f9;
+  border-radius: 0.5rem;
+}
