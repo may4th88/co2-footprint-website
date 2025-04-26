@@ -1,23 +1,47 @@
 // Globale Navigation: Umschalten der Hauptbereiche
-document.querySelectorAll('nav .nav-link[data-target]').forEach(link => {
-  link.addEventListener('click', event => {
+document.querySelectorAll('.nav-link[data-target]').forEach(link => {
+
+  link.addEventListener('click', async (event) => {
     event.preventDefault();
     const targetId = link.getAttribute('data-target');
     if (!targetId) return;
 
-    // Alle view-Sektionen ausblenden
-    document.querySelectorAll('.view').forEach(section => {
-      section.classList.add('hidden');
-    });
-
-    // Ziel anzeigen
     const targetSection = document.getElementById(targetId);
-    if (targetSection) {
-      targetSection.classList.remove('hidden');
-      window.scrollTo({ top: targetSection.offsetTop - 80, behavior: 'smooth' });
+    const currentSection = document.querySelector('.view.active');
+
+    if (currentSection && currentSection !== targetSection) {
+      const currentFade = currentSection.querySelector('.fade-container');
+
+      // Fade-Out Inhalt
+      if (currentFade) {
+        currentFade.classList.remove('visible');
+        /*await new Promise(resolve => setTimeout(resolve, 75)); // warte auf fade-out */
+      }
+
+      // Sektion ausblenden
+      currentSection.classList.remove('active');
+      /*await new Promise(resolve => setTimeout(resolve, 150)); // warte auf Sektion-Fade */
+
+      currentSection.classList.add('hidden');
     }
+
+    // Ziel-Sektion vorbereiten
+    targetSection.classList.remove('hidden');
+
+    // aktivieren & Inhalt zeigen
+    setTimeout(() => {
+      targetSection.classList.add('active');
+
+      const targetFade = targetSection.querySelector('.fade-container');
+      if (targetFade) {
+        setTimeout(() => {
+          targetFade.classList.add('visible');
+        }, 100); // leichte Verzögerung
+      }
+    }, 20);
   });
 });
+
 
 
 // Lokale Navigation: Scroll innerhalb von #emissionen
@@ -63,11 +87,8 @@ fetch('emissionen.json')
         url: "//cdn.datatables.net/plug-ins/1.13.6/i18n/de-DE.json"
       },
       initComplete: function () {
-        // DataTable-Elemente verschieben
         $('#emissionenTabelle_length').appendTo('#customLengthFilter');
         $('#emissionenTabelle_filter').appendTo('#customSearchFilter');
-
-        // Paginierung unten korrekt anhängen
         $('#emissionenTabelle_paginate').appendTo('#tablePaginationBottom');
 
         const topPaginate = $('<div id="emissionenTabelle_paginate_top" class="dataTables_paginate"></div>');
@@ -107,7 +128,29 @@ fetch('emissionen.json')
       const value = landFilter.value;
       dataTableInstance.column(0).search(value).draw(); // 0 = erste Spalte (Land)
     });
+
+    // Nach dem Laden der Tabelle: Fading der Inhalte starten
+    document.querySelector('#emissionen .fade-container')?.classList.add('visible');
   })
   .catch(error => {
     console.error("Fehler beim Laden der Emissionsdaten:", error);
   });
+
+// rlt oder ltr gemäß Browsersprache
+document.addEventListener("DOMContentLoaded", () => {
+  const html = document.documentElement;
+  
+  // Browser-Sprache holen
+  const browserLang = (navigator.language || navigator.userLanguage || "de").split('-')[0].toLowerCase();
+
+  // Liste aller Sprachen, die RTL brauchen
+  const rtlLanguages = ["ar", "he", "fa", "ur", "ps", "dv", "syr", "ug", "yi"];
+
+  // "dir"-Attribut entsprechend setzen
+  if (rtlLanguages.includes(browserLang)) {
+    html.setAttribute("dir", "rtl");
+  } else {
+    html.setAttribute("dir", "ltr");
+  }
+});
+  

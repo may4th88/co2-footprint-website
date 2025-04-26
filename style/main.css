@@ -1,6 +1,64 @@
-.hidden {
-  display: none;
+html {
+  scrollbar-gutter: stable;
 }
+
+.hidden {
+  display: none !important;
+}
+
+.view {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+
+.view.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+
+/*Dieser Selector stellt sicher: Falls eine .view nicht .hidden und auch nicht .active ist (also z. B. initial sichtbar wie #home), dann wird sie sofort sichtbar, ohne Transition*/
+.view:not(.hidden):not(.active) {
+  opacity: 1;
+  visibility: visible;
+}
+
+.fade-container {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+/* Standard: Platz links für Navigation */
+#emissionen .fade-container {
+  margin-left: 240px;
+  margin-right: 0;
+}
+
+/* RTL-Version: Platz rechts für Navigation */
+[dir="rtl"] #emissionen .fade-container {
+  margin-left: 0;
+  margin-right: 240px;
+}
+
+#emissionen p.text-muted {
+  text-align: left;
+}
+
+/* RTL-Version */
+[dir="rtl"] #emissionen p.text-muted {
+  text-align: right;
+}
+
+
+
+.fade-container.visible {
+  opacity: 1;
+}
+
+
+
 
 nav a {
   text-decoration: none;
@@ -162,3 +220,45 @@ nav a:hover {
   background-color: #f9f9f9;
   border-radius: 0.5rem;
 }
+
+#home {
+  height: calc(100vh - 120px); /* volle Höhe abzüglich Header */
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.gif-background {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.gif-background img {
+  width: 90%;
+  height: 90%;
+  object-fit: cover;
+  opacity: 0.3; /* Optional: Abdunkeln für bessere Lesbarkeit */
+}
+
+.home-content h2 {
+  font-size: 4rem; /* oder größer */
+  font-weight: 900;
+  letter-spacing: -1px;
+  text-transform: uppercase;
+  color: #111;
+}
+
+.home-content p {
+  color: #000;
+  font-weight: 500; /* Optional für mehr Sichtbarkeit */
+}
+
+
+
+

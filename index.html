@@ -23,9 +23,12 @@
   <!-- Eigene Styles -->
   <link rel="stylesheet" href="style/main.css" />
 </head>
-<body class="container py-4">
+<!-- "d-flex flex-column min-vh-100" Für Footer notwendig -->
+<body class="d-flex flex-column min-vh-100 pt-4 px-4">
 
-  <header class="d-flex align-items-center justify-content-between mb-4 sticky-top bg-white py-3 border-bottom">
+
+
+  <header class="d-flex align-items-center justify-content-between mb-4 sticky-top bg-white border-bottom">
     <div class="d-flex align-items-center">
       <img src="assets/logo.png" alt="GreenTrace Logo" height="50" class="me-3">
       <h1 class="h3 mb-0">GreenTrace</h1>
@@ -33,19 +36,32 @@
 
     <nav class="d-flex align-items-center">
       <a href="#" data-target="home" class="me-3 nav-link">Home</a>
-      <a href="#" class="me-3 nav-link" data-target="emissionen">Emissionen</a>
+      <a href="#" data-target="emissionen" class="me-3 nav-link">Emissionen</a>
       <a href="#" data-target="ueber-uns" class="me-3 nav-link">Über uns</a>
-      <a href="#" data-target="kontakt" class="nav-link">Kontakt</a>
+      <a href="#" data-target="kontakt" class="me-3 nav-link">Kontakt</a>
     </nav>
+    
   </header>
+  <!--flex-grow-1 für Footer notwendig -->
+  <main class="flex-grow-1">
 
-  <main>
-    <section id="home" class="view">
-      <h2>Willkommen bei GreenTrace</h2>
-      <p>Damit CO²-Emissionen gesenkt werden, müssen wir wissen, an welchen Stellschrauben wir drehen müssen.</p>
+    <section id="home" class="view position-relative text-white active">
+      <div class="fade-container visible">
+        <div class="gif-background">
+          <img src="https://media.giphy.com/media/fn4OmpU7AfSdNowx9T/giphy.gif" alt="CO₂ Animation"> 
+        </div>
+        <div class="home-content position-relative text-center">
+          <h2 class="display-4">Willkommen bei GreenTrace</h2>
+          <p class="lead">Damit CO²-Emissionen gesenkt werden, müssen wir wissen, an welchen Stellschrauben wir drehen müssen.</p>
+        </div>
+      </div>
     </section>
+    
+    
+    
 
     <section id="emissionen" class="view hidden">
+      <div class="fade-container">
       <h2 id="emissionen-uebersicht">Emissionen nach Unternehmen & Ländern</h2>
       <p class="text-muted">
         <strong>Hinweis:</strong> Die folgende Tabelle zeigt ausgewählte Unternehmen mit hohen CO₂-Emissionen und deren Sitzland. 
@@ -110,21 +126,64 @@
           </tbody>
         </table>
       </div>
+    </div>
     </section>
 
     <section id="ueber-uns" class="view hidden">
+      <div class="fade-container">
       <h2>GreenTrace – wer wir sind</h2>
+      </div>
     </section>
 
     <section id="kontakt" class="view hidden">
+      <div class="fade-container">
       <h2>Kontaktiere uns</h2>
+      </div>
     </section>
+    <section id="impressum" class="view hidden">
+      <div class="fade-container">
+        <h2>Impressum</h2>
+        <p><strong>Angaben gemäß § 5 TMG:</strong></p>
+        <p>
+          Alexander Staus<br>
+          Musterstraße 1<br>
+          12345 Musterstadt<br>
+          Deutschland
+        </p>
+        <p><strong>Kontakt:</strong><br>
+          Telefon: 01234 567890<br>
+          E-Mail: info@green-trace.de
+        </p>
+        <p class="mt-4 small text-muted">
+          GreenTrace ist als gemeinnützige Organisation teilweise von der Körperschaftsteuer gemäß § 5 Abs. 1 Nr. 9 KStG unter der Steuernummer 17/433/04892 befreit.
+        </p>
+      </div>
+    </section>
+    
+    <section id="datenschutz" class="view hidden">
+      <div class="fade-container">
+        <h2>Datenschutzerklärung</h2>
+        <p>
+          Der Schutz Ihrer persönlichen Daten ist uns wichtig. Diese Webseite verarbeitet keine personenbezogenen Daten und verwendet keine Cookies oder Analyse-Tools.
+        </p>
+        <p>
+          Bei einer Kontaktaufnahme per E-Mail werden Ihre Angaben ausschließlich zur Bearbeitung Ihrer Anfrage verwendet und nicht an Dritte weitergegeben.
+        </p>
+      </div>
+    </section>
+    
   </main>
 
   <!-- Sichtbarer Fußbereich mit Autorenangabe -->
-  <footer class="text-muted text-center mt-5 small">
-    © 2025 erstellt von <strong>Alexander Staus</strong> · GreenTrace Projekt
+  <footer class="text-muted text-center small mt-5">
+    © 2025 erstellt von <strong>Alexander Staus</strong> · GreenTrace Projekt · 
+    <span class="footer-links">
+      <a href="#" data-target="impressum" class="text-decoration-none nav-link d-inline-block mx-1">Impressum</a> · 
+      <a href="#" data-target="datenschutz" class="text-decoration-none nav-link d-inline-block mx-1">Datenschutz</a>
+    </span>
   </footer>
+  
+  
 
   <!-- Bootstrap JS (optional, falls Bootstrap-Komponenten gebraucht werden) -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
