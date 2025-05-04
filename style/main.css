@@ -1,5 +1,12 @@
+/* ========== Basis: Mobile First ========== */
 html {
   scrollbar-gutter: stable;
+  font-size: 16px;
+}
+
+body {
+  margin: 0;
+  padding: 0;
 }
 
 .hidden {
@@ -12,14 +19,7 @@ html {
   transition: opacity 0.2s ease, visibility 0.2s ease;
 }
 
-
-.view.active {
-  opacity: 1;
-  visibility: visible;
-}
-
-
-/*Dieser Selector stellt sicher: Falls eine .view nicht .hidden und auch nicht .active ist (also z. B. initial sichtbar wie #home), dann wird sie sofort sichtbar, ohne Transition*/
+.view.active,
 .view:not(.hidden):not(.active) {
   opacity: 1;
   visibility: visible;
@@ -30,35 +30,9 @@ html {
   transition: opacity 0.2s ease;
 }
 
-/* Standard: Platz links für Navigation */
-#emissionen .fade-container {
-  margin-left: 240px;
-  margin-right: 0;
-}
-
-/* RTL-Version: Platz rechts für Navigation */
-[dir="rtl"] #emissionen .fade-container {
-  margin-left: 0;
-  margin-right: 240px;
-}
-
-#emissionen p.text-muted {
-  text-align: left;
-}
-
-/* RTL-Version */
-[dir="rtl"] #emissionen p.text-muted {
-  text-align: right;
-}
-
-
-
 .fade-container.visible {
   opacity: 1;
 }
-
-
-
 
 nav a {
   text-decoration: none;
@@ -70,24 +44,21 @@ nav a:hover {
   text-decoration: underline;
 }
 
-/* Initial-Zustand */
 .dropdown-menu {
   opacity: 0;
   visibility: hidden;
-  transform: translateY(10px);
+  transform: translateY(0.625rem);
   transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
   display: block;
   position: absolute;
 }
 
-/* Beim Hover: sichtbar + eingeblendet */
 .dropdown:hover .dropdown-menu {
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
 }
 
-/* Einheitliches Styling für alle Filterleisten */
 #tableControls .dataTables_length label,
 #tableControls .dataTables_filter label {
   display: flex;
@@ -98,11 +69,10 @@ nav a:hover {
 
 #tableControls select,
 #tableControls input[type="search"] {
-  height: 32px;
+  height: 2rem;
   padding: 0.25rem 0.5rem;
 }
 
-/* Paginierung linksbündig */
 .dataTables_paginate {
   display: flex;
   justify-content: flex-start;
@@ -135,10 +105,12 @@ nav a:hover {
   font-weight: bold;
 }
 
-/* Tabellenlayout & Spaltenbreiten */
 #emissionenTabelle {
-  table-layout: fixed;
+  display: table;
   width: 100%;
+  table-layout: fixed;
+  margin-left: 0;
+  margin-right: 0;
 }
 
 #emissionenTabelle th,
@@ -148,69 +120,33 @@ nav a:hover {
   text-overflow: ellipsis;
   padding: 0.5rem;
   vertical-align: middle;
-  border: 1px solid #dee2e6;
+  border: 0.0625rem solid #dee2e6;
+  min-width: 5ch;
+  text-align: left;
 }
 
-/* Spalte 1: Land */
 #emissionenTabelle th:nth-child(1),
 #emissionenTabelle td:nth-child(1) {
-  width: 20%;
   text-align: left;
 }
 
-/* Spalte 2: Unternehmen */
 #emissionenTabelle th:nth-child(2),
 #emissionenTabelle td:nth-child(2) {
-  width: 50%;
   text-align: left;
 }
 
-/* Spalte 3: Emissionen */
 #emissionenTabelle th:nth-child(3),
 #emissionenTabelle td:nth-child(3) {
-  width: 30%;
   text-align: right;
 }
 
-/* Container-Wrapper von DataTables auf volle Breite bringen */
-.dataTables_wrapper {
-  width: 100% !important;
-}
-
-/* Tabelle darf sich voll ausbreiten */
-#emissionenTabelle {
-  display: table;
-  width: 100% !important;
-  table-layout: fixed;
-  margin-left: 0;
-  margin-right: 0;
-}
-
-/* Verhindert unsichtbare Ränder durch zu kleine Spalten */
-#emissionenTabelle th,
-#emissionenTabelle td {
-  min-width: 50px;
-}
-
-/* Lokale Navigation – standardmäßig links */
 #lokaleNavigation {
-  position: fixed;
-  top: 120px;
-  left: 20px;
-  width: 200px;
+  position: static;
+  margin-bottom: 2rem;
   background: #f8f9fa;
-  padding: 0.75rem 1rem;
+  padding: 1rem;
   border: 1px solid #dee2e6;
   border-radius: 0.5rem;
-  z-index: 1030;
-}
-
-
-/* RTL-Version: Navigation nach rechts verschieben */
-[dir="rtl"] #lokaleNavigation {
-  left: auto;
-  right: 20px;
-  text-align: right;
 }
 
 #emissionen-ranking-wrapper {
@@ -222,7 +158,7 @@ nav a:hover {
 }
 
 #home {
-  height: calc(100vh - 120px); /* volle Höhe abzüglich Header */
+  min-height: calc(100vh - 8rem);
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -232,7 +168,8 @@ nav a:hover {
 
 .gif-background {
   position: absolute;
-  top: 0; left: 0;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   z-index: 0;
@@ -243,22 +180,75 @@ nav a:hover {
   width: 90%;
   height: 90%;
   object-fit: cover;
-  opacity: 0.3; /* Optional: Abdunkeln für bessere Lesbarkeit */
+  opacity: 0.3;
 }
 
 .home-content h2 {
-  font-size: 4rem; /* oder größer */
+  font-size: clamp(2rem, 6vw, 4rem);
   font-weight: 900;
-  letter-spacing: -1px;
+  letter-spacing: -0.05em;
   text-transform: uppercase;
   color: #111;
 }
 
 .home-content p {
   color: #000;
-  font-weight: 500; /* Optional für mehr Sichtbarkeit */
+  font-weight: 500;
+}
+
+/* Mobile Dropdown Menü schlank machen */
+.navbar-nav .dropdown-menu {
+  padding: 0;
+  background: transparent;
+  border: none;
+}
+
+/* Dropdown in Mobile absolut platzieren, damit es keinen Platz reserviert */
+@media (max-width: 767px) {
+  .navbar-nav .dropdown-menu {
+    position: absolute;
+    background-color: white;
+    z-index: 1000;
+  }
+}
+
+.navbar-nav .dropdown-item {
+  padding: 0.5rem 1rem;
 }
 
 
+/* Mobile Untermenü Styling */
+#emissionenSubmenu {
+  background-color: #f8f9fa;
+}
+
+#emissionenSubmenu .nav-link {
+  font-weight: normal;
+}
 
 
+/* ========== Ab hier: Größere Bildschirme ========== */
+@media (min-width: 768px) {
+  #lokaleNavigation {
+    position: fixed;
+    top: 8rem;
+    left: 1.25rem;
+    width: clamp(12rem, 15vw, 18rem);
+  }
+
+  #emissionen .fade-container {
+    margin-left: clamp(12rem, 15vw, 18rem);
+    margin-right: 0;
+  }
+
+  [dir="rtl"] #lokaleNavigation {
+    left: auto;
+    right: 1.25rem;
+    text-align: right;
+  }
+
+  [dir="rtl"] #emissionen .fade-container {
+    margin-left: 0;
+    margin-right: clamp(12rem, 15vw, 18rem);
+  }
+}

@@ -5,50 +5,65 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>GreenTrace</title>
 
-  <!-- 
-    Projekt: GreenTrace
-    Autor: Alexander Staus
-    Zeitraum: Entwicklung laufend
-    Beschreibung: Webanwendung zur Visualisierung von CO₂-Emissionen
-  -->
-
-  <!-- Bootstrap -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <!-- DataTables CSS -->
   <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
-  <!-- jQuery & DataTables JS -->
+  <link rel="stylesheet" href="style/main.css" />
+
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-
-  <!-- Eigene Styles -->
-  <link rel="stylesheet" href="style/main.css" />
 </head>
-<!-- "d-flex flex-column min-vh-100" Für Footer notwendig -->
+
 <body class="d-flex flex-column min-vh-100 pt-4 px-4">
 
-
-
-  <header class="d-flex align-items-center justify-content-between mb-4 sticky-top bg-white border-bottom">
-    <div class="d-flex align-items-center">
-      <img src="assets/logo.png" alt="GreenTrace Logo" height="50" class="me-3">
-      <h1 class="h3 mb-0">GreenTrace</h1>
-    </div>
-
-    <nav class="d-flex align-items-center">
-      <a href="#" data-target="home" class="me-3 nav-link">Home</a>
-      <a href="#" data-target="emissionen" class="me-3 nav-link">Emissionen</a>
-      <a href="#" data-target="ueber-uns" class="me-3 nav-link">Über uns</a>
-      <a href="#" data-target="kontakt" class="me-3 nav-link">Kontakt</a>
+  <header class="sticky-top bg-white border-bottom mb-4">
+    <nav class="navbar navbar-expand-md">
+      <div class="container-fluid">
+        <a class="navbar-brand d-flex align-items-center" href="#">
+          <img src="assets/logo.png" alt="GreenTrace Logo" height="50" class="me-2">
+          <h1 class="h3 mb-0">GreenTrace</h1>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Menü öffnen">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarContent">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a href="#" data-target="home" class="nav-link">Home</a>
+            </li>
+            
+            <!-- Desktop: Emissionen als normaler Link -->
+            <li class="nav-item d-none d-md-block">
+              <a href="#" data-target="emissionen" class="nav-link">Emissionen</a>
+            </li>
+          
+            <!-- Mobile: Emissionen mit aufklappbaren Unterpunkten -->
+            <li class="nav-item d-md-none">
+              <a href="#" class="nav-link" id="emissionenToggle">Emissionen ▸</a>
+              <ul class="list-unstyled collapse" id="emissionenSubmenu">
+                <li><a class="nav-link ps-4" href="#" data-target="emissionen">Emissionen Übersicht</a></li>
+                <li><a class="nav-link ps-4" href="#" data-target="emissionen" data-scroll="#emissionen-ranking">Ländervergleich</a></li>
+              </ul>
+            </li>
+          
+            <li class="nav-item">
+              <a href="#" data-target="ueber-uns" class="nav-link">Über uns</a>
+            </li>
+            <li class="nav-item">
+              <a href="#" data-target="kontakt" class="nav-link">Kontakt</a>
+            </li>
+          </ul>
+          
+        </div>
+      </div>
     </nav>
-    
   </header>
-  <!--flex-grow-1 für Footer notwendig -->
+
   <main class="flex-grow-1">
 
     <section id="home" class="view position-relative text-white active">
       <div class="fade-container visible">
         <div class="gif-background">
-          <img src="https://media.giphy.com/media/fn4OmpU7AfSdNowx9T/giphy.gif" alt="CO₂ Animation"> 
+          <img src="https://media.giphy.com/media/fn4OmpU7AfSdNowx9T/giphy.gif" alt="CO₂ Animation">
         </div>
         <div class="home-content position-relative text-center">
           <h2 class="display-4">Willkommen bei GreenTrace</h2>
@@ -56,136 +71,106 @@
         </div>
       </div>
     </section>
-    
-    
-    
 
     <section id="emissionen" class="view hidden">
       <div class="fade-container">
-      <h2 id="emissionen-uebersicht">Emissionen nach Unternehmen & Ländern</h2>
-      <p class="text-muted">
-        <strong>Hinweis:</strong> Die folgende Tabelle zeigt ausgewählte Unternehmen mit hohen CO₂-Emissionen und deren Sitzland. 
-        Die aufgeführten Werte repräsentieren nicht die Gesamtemissionen eines Landes, sondern nur die Beiträge einzelner Unternehmen.
-      </p>
+        <h2 id="emissionen-uebersicht">Emissionen nach Unternehmen & Ländern</h2>
+        <p class="text-muted">
+          <strong>Hinweis:</strong> Die folgende Tabelle zeigt ausgewählte Unternehmen mit hohen CO₂-Emissionen und deren Sitzland.
+        </p>
 
-      <!-- 👇 Alle Selektionsmechanismen auf einer Linie -->
-      <div id="tableControls" class="d-flex flex-wrap align-items-center gap-4 mb-3">
-        <div id="customLengthFilter" class="d-flex align-items-center gap-2"></div>
-        <div id="customSearchFilter" class="d-flex align-items-center gap-2"></div>
-        <div class="d-flex align-items-center gap-2">
-          <label for="landFilter" class="mb-0">Filtern nach Land:</label>
-          <select id="landFilter" class="form-select form-select-sm w-auto">
-            <option value="">Alle Länder</option>
-          </select>
+        <button class="btn btn-outline-primary d-md-none mb-3" type="button" data-bs-toggle="collapse" data-bs-target="#filterMenu" aria-expanded="false" aria-controls="filterMenu">Filter & Suche</button>
+        <div class="collapse d-md-block" id="filterMenu">
+          <div id="tableControls" class="d-flex flex-wrap align-items-center gap-4 mb-3">
+            <div id="customLengthFilter" class="d-flex align-items-center gap-2"></div>
+            <div id="customSearchFilter" class="d-flex align-items-center gap-2"></div>
+            <div class="d-flex align-items-center gap-2">
+              <label for="landFilter" class="mb-0">Filtern nach Land:</label>
+              <select id="landFilter" class="form-select form-select-sm w-auto">
+                <option value="">Alle Länder</option>
+              </select>
+            </div>
+          </div>
         </div>
-      </div>
 
-      <!-- 👇 Lokale Navigation -->
-      <nav id="lokaleNavigation" class="mb-3">
-        <ul class="nav flex-column">
-          <li class="nav-item">
-            <a class="nav-link" href="#emissionen-uebersicht">Unternehmen & Länder</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#emissionen-ranking">Ländervergleich</a>
-          </li>
-        </ul>
-      </nav>
+        <nav id="lokaleNavigation" class="mb-3 d-none d-md-block">
+          <ul class="nav flex-column">
+            <li class="nav-item"><a class="nav-link" href="#emissionen-uebersicht">Unternehmen & Länder</a></li>
+            <li class="nav-item"><a class="nav-link" href="#emissionen-ranking">Ländervergleich</a></li>
+          </ul>
+        </nav>
 
-      <!-- Tabelle: Unternehmen -->
-      <table class="table table-striped" id="emissionenTabelle">
-        <thead>
-          <tr>
-            <th>Land</th>
-            <th>Unternehmen</th>
-            <th>Emissionen (Mt CO₂)</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- Wird per JS befüllt -->
-        </tbody>
-      </table>
-
-      <div id="tablePaginationBottom" class="d-flex justify-content-start mt-2"></div>
-
-      <!-- Ranking der Länder -->
-      <div style="height: 100vh;"></div>
-
-      <div id="emissionen-ranking-wrapper" class="pt-5 mt-5 border-top">
-        <h2 id="emissionen-ranking">Ranking der Länder nach Gesamtemissionen</h2>
-        <table class="table table-bordered" id="laenderRanking">
+        <table class="table table-striped" id="emissionenTabelle">
           <thead>
             <tr>
-              <th>Platz</th>
               <th>Land</th>
+              <th>Unternehmen</th>
               <th>Emissionen (Mt CO₂)</th>
             </tr>
           </thead>
-          <tbody>
-            <!-- Wird per JS befüllt -->
-          </tbody>
+          <tbody></tbody>
         </table>
+
+        <div id="tablePaginationBottom" class="d-flex justify-content-start mt-2"></div>
+
+        <div style="height: 100vh;"></div>
+
+        <div id="emissionen-ranking-wrapper" class="pt-5 mt-5 border-top">
+          <h2 id="emissionen-ranking">Ranking der Länder nach Gesamtemissionen</h2>
+          <table class="table table-bordered" id="laenderRanking">
+            <thead>
+              <tr>
+                <th>Platz</th>
+                <th>Land</th>
+                <th>Emissionen (Mt CO₂)</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
       </div>
-    </div>
     </section>
 
     <section id="ueber-uns" class="view hidden">
       <div class="fade-container">
-      <h2>GreenTrace – wer wir sind</h2>
+        <h2>GreenTrace – wer wir sind</h2>
       </div>
     </section>
 
     <section id="kontakt" class="view hidden">
       <div class="fade-container">
-      <h2>Kontaktiere uns</h2>
+        <h2>Kontaktiere uns</h2>
       </div>
     </section>
+
     <section id="impressum" class="view hidden">
       <div class="fade-container">
         <h2>Impressum</h2>
         <p><strong>Angaben gemäß § 5 TMG:</strong></p>
-        <p>
-          Alexander Staus<br>
-          Musterstraße 1<br>
-          12345 Musterstadt<br>
-          Deutschland
-        </p>
-        <p><strong>Kontakt:</strong><br>
-          Telefon: 01234 567890<br>
-          E-Mail: info@green-trace.de
-        </p>
-        <p class="mt-4 small text-muted">
-          GreenTrace ist als gemeinnützige Organisation teilweise von der Körperschaftsteuer gemäß § 5 Abs. 1 Nr. 9 KStG unter der Steuernummer 17/433/04892 befreit.
-        </p>
+        <p>Alexander Staus<br>Musterstraße 1<br>12345 Musterstadt<br>Deutschland</p>
+        <p><strong>Kontakt:</strong><br>Telefon: 01234 567890<br>E-Mail: info@green-trace.de</p>
+        <p class="mt-4 small text-muted">GreenTrace ist als gemeinnützige Organisation teilweise von der Körperschaftsteuer gemäß § 5 Abs. 1 Nr. 9 KStG unter der Steuernummer 17/433/04892 befreit.</p>
       </div>
     </section>
-    
+
     <section id="datenschutz" class="view hidden">
       <div class="fade-container">
         <h2>Datenschutzerklärung</h2>
-        <p>
-          Der Schutz Ihrer persönlichen Daten ist uns wichtig. Diese Webseite verarbeitet keine personenbezogenen Daten und verwendet keine Cookies oder Analyse-Tools.
-        </p>
-        <p>
-          Bei einer Kontaktaufnahme per E-Mail werden Ihre Angaben ausschließlich zur Bearbeitung Ihrer Anfrage verwendet und nicht an Dritte weitergegeben.
-        </p>
+        <p>Der Schutz Ihrer persönlichen Daten ist uns wichtig. Diese Webseite verarbeitet keine personenbezogenen Daten und verwendet keine Cookies oder Analyse-Tools.</p>
+        <p>Bei einer Kontaktaufnahme per E-Mail werden Ihre Angaben ausschließlich zur Bearbeitung Ihrer Anfrage verwendet und nicht an Dritte weitergegeben.</p>
       </div>
     </section>
-    
+
   </main>
 
-  <!-- Sichtbarer Fußbereich mit Autorenangabe -->
   <footer class="text-muted text-center small mt-5">
-    © 2025 erstellt von <strong>Alexander Staus</strong> · GreenTrace Projekt · 
+    © 2025 erstellt von <strong>Alexander Staus</strong> · GreenTrace Projekt ·
     <span class="footer-links">
-      <a href="#" data-target="impressum" class="text-decoration-none nav-link d-inline-block mx-1">Impressum</a> · 
+      <a href="#" data-target="impressum" class="text-decoration-none nav-link d-inline-block mx-1">Impressum</a> ·
       <a href="#" data-target="datenschutz" class="text-decoration-none nav-link d-inline-block mx-1">Datenschutz</a>
     </span>
   </footer>
-  
-  
 
-  <!-- Bootstrap JS (optional, falls Bootstrap-Komponenten gebraucht werden) -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   <script src="script/main.js"></script>
   <script>console.log("GreenTrace – erstellt von Alexander Staus ✨")</script>
