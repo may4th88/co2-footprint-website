@@ -1,0 +1,55 @@
+<section id="emissionen" class="view hidden">
+    <div class="fade-container">
+      
+      <h2 id="emissionen-uebersicht">Emissionen nach Unternehmen & Ländern</h2>
+      <p class="text-muted"><strong>Hinweis:</strong> Die folgende Tabelle zeigt ausgewählte Unternehmen mit hohen CO₂-Emissionen und deren Sitzland.</p>
+      <button class="btn btn-outline-primary d-md-none mb-3" type="button" data-bs-toggle="collapse" data-bs-target="#filterMenu">Filter & Suche</button>
+      <div class="collapse d-md-block" id="filterMenu">
+        <div id="tableControls" class="d-flex flex-wrap align-items-center gap-4 mb-3">
+          <div id="customLengthFilter" class="d-flex align-items-center gap-2"></div>
+          <div id="customSearchFilter" class="d-flex align-items-center gap-2"></div>
+          <div class="d-flex align-items-center gap-2">
+            <label for="landFilter" class="mb-0">Filtern nach Land:</label>
+            <select id="landFilter" class="form-select form-select-sm w-auto">
+              <option value="">Alle Länder</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <nav id="lokaleNavigation" class="mb-3 d-none d-md-block">
+        <ul class="nav flex-column">
+          <li class="nav-item"><a class="nav-link" href="#emissionen-uebersicht">Unternehmen & Länder</a></li>
+          <li class="nav-item"><a class="nav-link" href="#emissionen-ranking">Ländervergleich</a></li>
+        </ul>
+      </nav>
+      <table class="table table-striped" id="emissionenTabelle">
+        <thead>
+          <tr>
+            <th>Land</th>
+            <th>Unternehmen</th>
+            <th>Emissionen (Mt CO₂)</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <div id="tablePaginationBottom" class="d-flex justify-content-start mt-2"></div>
+      <div style="height: 50vh;"></div>
+
+
+      <div id="emissionen-ranking-wrapper" >
+       <!-- <div id="emissionen-ranking" style="position: relative; top: -2rem;"></div>  -->
+        <h2 id="emissionen-ranking">Ranking der Länder nach Gesamtemissionen</h2>
+        <table class="table table-striped" id="laenderRanking">
+          <thead>
+            <tr>
+              <th>Platz</th>
+              <th>Land</th>
+              <th>Emissionen (Mt CO₂)</th>
+              <th>%-Anteil an Gesamtemissionen</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </section>

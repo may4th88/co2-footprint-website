@@ -1,0 +1,42 @@
+.dropdown-menu {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(0.625rem);
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+    display: block;
+    position: absolute;
+  }
+  .dropdown:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  .navbar-nav .dropdown-menu {
+    padding: 0;
+    background: transparent;
+    border: none;
+  }
+  @media (max-width: 767px) {
+    .navbar-nav .dropdown-menu {
+      position: absolute;
+      background-color: white;
+      z-index: 1000;
+    }
+  }
+  .navbar-nav .dropdown-item {
+    padding: 0.5rem 1rem;
+  }
+  #emissionenSubmenu {
+    background-color: #f8f9fa;
+  }
+  #emissionenSubmenu .nav-link {
+    font-weight: normal;
+  }
+
+  #header-container {
+    position: sticky;
+    top: 0;
+    z-index: 1030; /* höher als die Bootstrap-Navigation damit Header als oberster Layer bleibt bzw. damit beim Hin- und Her navigieren kein anderer Inhalt durchschimmert*/
+  }
+  
+  

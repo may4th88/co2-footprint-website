@@ -1,0 +1,27 @@
+@media (min-width: 768px) {
+  #lokaleNavigation {
+    position: fixed;
+    top: 6.8rem;
+    left: 1.25rem;
+    width: clamp(12rem, 15vw, 18rem);
+  }
+
+  /* Einrückung für beide Views */
+  #emissionen .fade-container,
+  #rankingView .fade-container {
+    margin-left: clamp(12rem, 15vw, 18rem);
+    margin-right: 0;
+  }
+
+  [dir="rtl"] #lokaleNavigation {
+    left: auto;
+    right: 1.25rem;
+    text-align: right;
+  }
+
+  [dir="rtl"] #emissionen .fade-container,
+  [dir="rtl"] #rankingView .fade-container {
+    margin-left: 0;
+    margin-right: clamp(12rem, 15vw, 18rem);
+  }
+}

@@ -1,0 +1,37 @@
+<header class="sticky-top bg-white border-bottom">
+    <nav class="navbar navbar-expand-md">
+      <div class="container-fluid">
+        <a class="navbar-brand d-flex align-items-center" href="#">
+          <img src="assets/logo.png" alt="GreenTrace Logo" height="50" class="me-2">
+          <h1 class="h3 mb-0">GreenTrace</h1>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+          aria-controls="navbarContent" aria-expanded="false" aria-label="Menü öffnen">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarContent">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a href="#" data-target="home" class="nav-link">Home</a>
+            </li>
+            <li class="nav-item d-none d-md-block">
+              <a href="#" data-target="emissionen" class="nav-link">Emissionen</a>
+            </li>
+            <li class="nav-item d-md-none">
+              <a href="#" class="nav-link" id="emissionenToggle">Emissionen ▸</a>
+              <ul class="list-unstyled collapse" id="emissionenSubmenu">
+                <li><a class="nav-link ps-4" href="#" data-target="emissionen">Emissionen Übersicht</a></li>
+                <li><a class="nav-link ps-4" href="#" data-target="emissionen" data-scroll="#emissionen-ranking">Ländervergleich</a></li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a href="#" data-target="ueber-uns" class="nav-link">Über uns</a>
+            </li>
+            <li class="nav-item">
+              <a href="#" data-target="kontakt" class="nav-link">Kontakt</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>

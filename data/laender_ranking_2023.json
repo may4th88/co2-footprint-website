@@ -1,0 +1,65 @@
+{
+    "gesamtEmissionen": 39023.93704,
+    "daten": [
+      {
+        "platz": 1,
+        "land": "China",
+        "emissionen": 13259.63895,
+        "prozent": 33.98
+      },
+      {
+        "platz": 2,
+        "land": "United States",
+        "emissionen": 4682.039414,
+        "prozent": 12.0
+      },
+      {
+        "platz": 3,
+        "land": "India",
+        "emissionen": 2955.181684,
+        "prozent": 7.57
+      },
+      {
+        "platz": 4,
+        "land": "Russland",
+        "emissionen": 2069.50201,
+        "prozent": 5.3
+      },
+      {
+        "platz": 5,
+        "land": "Japan",
+        "emissionen": 2069.5020102347,
+        "prozent": 5.3
+      },
+      {
+        "platz": 6,
+        "land": "Iran",
+        "emissionen": 778.8022987,
+        "prozent": 2.0
+      },
+      {
+        "platz": 7,
+        "land": "Indonesien",
+        "emissionen": 674.5359386,
+        "prozent": 1.73
+      },
+      {
+        "platz": 8,
+        "land": "Saudi-Arabien",
+        "emissionen": 622.9136005,
+        "prozent": 1.6
+      },
+      {
+        "platz": 9,
+        "land": "Deutschland",
+        "emissionen": 582.9505817,
+        "prozent": 1.49
+      },
+      {
+        "platz": 10,
+        "land": "Kanada",
+        "emissionen": 575.0119627,
+        "prozent": 1.47
+      }
+    ]
+  }

@@ -1,0 +1,52 @@
+/* Basis und globale Styles */
+html {
+    scrollbar-gutter: stable;
+    font-size: 16px;
+  }
+  body {
+    margin: 0;
+    padding: 0;
+  }
+  .hidden {
+    display: none !important;
+  }
+  .view {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+  }
+  .view.active,
+  .view:not(.hidden):not(.active) {
+    opacity: 1;
+    visibility: visible;
+  }
+  .fade-container {
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+  .fade-container.visible {
+    opacity: 1;
+  }
+  nav a {
+    text-decoration: none;
+    font-weight: bold;
+    color: #0d6efd;
+  }
+  nav a:hover {
+    text-decoration: underline;
+  }
+  
+
+  /* Entwicklungsmarkierungen */
+
+#main-container {
+  background-color: rgba(255, 200, 200, 0.2); /* leichtes Rot, 20% Deckkraft */
+}
+
+#home {
+  background-color: rgba(200, 255, 200, 0.3); /* leichtes Grün, 30% Deckkraft */
+}
+
+#ueber-uns {
+  background-color: rgba(200, 255, 200, 0.3); /* leichtes Grün, 30% Deckkraft */
+}
