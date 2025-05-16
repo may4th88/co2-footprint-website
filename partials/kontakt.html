@@ -1,5 +1,30 @@
 <section id="kontakt" class="view hidden">
-    <div class="fade-container">
-      <h2>Kontaktiere uns</h2>
-    </div>
+  <div class="fade-container container">
+    <h2>Kontakt</h2>
+    <p>Haben Sie Fragen oder Anregungen? Schreiben Sie uns – wir freuen uns auf Ihre Nachricht!</p>
+
+    <form class="mt-4" action="mailto:dein.email@example.org" method="POST" enctype="text/plain">
+      <div class="mb-3">
+        <label for="name" class="form-label">Name</label>
+        <input type="text" id="name" name="name" class="form-control" placeholder="Ihr Name">
+      </div>
+
+      <div class="mb-3">
+        <label for="email" class="form-label">E-Mail-Adresse *</label>
+        <input type="email" id="email" name="email" class="form-control" placeholder="Ihre E-Mail-Adresse" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="betreff" class="form-label">Betreff</label>
+        <input type="text" id="betreff" name="betreff" class="form-control" placeholder="Worum geht es?">
+      </div>
+
+      <div class="mb-3">
+        <label for="nachricht" class="form-label">Nachricht *</label>
+        <textarea id="nachricht" name="nachricht" rows="5" class="form-control" placeholder="Ihre Nachricht..." required></textarea>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Nachricht senden</button>
+    </form>
+  </div>
 </section>

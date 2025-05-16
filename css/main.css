@@ -20,6 +20,7 @@ html {
     opacity: 1;
     visibility: visible;
   }
+
   .fade-container {
     opacity: 0;
     transition: opacity 0.2s ease;
@@ -27,6 +28,7 @@ html {
   .fade-container.visible {
     opacity: 1;
   }
+
   nav a {
     text-decoration: none;
     font-weight: bold;
@@ -35,7 +37,25 @@ html {
   nav a:hover {
     text-decoration: underline;
   }
-  
+
+
+/* Die Seite Emissionen braucht einen fixen Layer um einen sticky Footer zu setzen*/
+#main-container.emissionen-mode {
+  height: calc(100vh - 8rem); /* Höhe Footer */
+  /* overflow: hidden; */
+}
+
+#main-container.emissionen-mode #emissionen {
+  height: 100%;
+ /* overflow: hidden; */
+}
+
+#main-container.emissionen-mode #emissionen .fade-container {
+  height: 100%;
+  overflow-y: auto;
+}
+
+
 
   /* Entwicklungsmarkierungen */
 

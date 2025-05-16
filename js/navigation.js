@@ -29,16 +29,36 @@ function initNavigation() {
       }
 
       targetSection.classList.remove('hidden');
+
+      // Steuere emissionen-mode-Klasse auf dem Main-Container
+      const main = document.getElementById('main-container');
+      if (targetId === 'emissionen') {
+        main.classList.add('emissionen-mode');
+      } else {
+        main.classList.remove('emissionen-mode');
+      }
+
       setTimeout(() => {
         targetSection.classList.add('active');
         const targetFade = targetSection.querySelector('.fade-container');
         if (targetFade) {
           setTimeout(() => targetFade.classList.add('visible'), 100);
         }
+
+        // Scrollspy initialisieren, wenn Emissionen aktiv ist
+        if (targetId === 'emissionen') {
+          const scrollContainer = targetSection.querySelector('.fade-container');
+          if (scrollContainer) {
+            bootstrap.ScrollSpy.getOrCreateInstance(scrollContainer, {
+              target: '#lokaleNavigation',
+              offset: 80
+            });
+          }
+        }
       }, 20);
 
       const navbarCollapse = document.querySelector('.navbar-collapse');
-      if (navbarCollapse.classList.contains('show')) {
+      if (navbarCollapse && navbarCollapse.classList.contains('show')) {
         const bsCollapse = bootstrap.Collapse.getInstance(navbarCollapse) || new bootstrap.Collapse(navbarCollapse);
         bsCollapse.hide();
       }
@@ -47,10 +67,6 @@ function initNavigation() {
       if (submenu && submenu.classList.contains('show')) {
         submenu.classList.remove('show');
       }
-
-      const offset = 80;
-      const targetY = targetSection.getBoundingClientRect().top + window.scrollY - offset;
-      window.scrollTo({ top: targetY, behavior: 'smooth' });
     });
   });
 
@@ -64,9 +80,7 @@ function initNavigation() {
       setTimeout(() => {
         const scrollTarget = document.querySelector(scrollId);
         if (scrollTarget) {
-          const offset = 100;
-          const targetY = scrollTarget.getBoundingClientRect().top + window.scrollY - offset;
-          window.scrollTo({ top: targetY, behavior: 'smooth' });
+          scrollTarget.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
       }, 500);
     });
@@ -78,13 +92,10 @@ function initNavigation() {
       const targetId = link.getAttribute('href').substring(1);
       const targetElement = document.getElementById(targetId);
       if (targetElement) {
-        const offset = 100; // Header + optischer Abstand
-        const targetY = targetElement.getBoundingClientRect().top + window.scrollY - offset;
-        window.scrollTo({ top: targetY, behavior: 'smooth' });
+        targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     });
   });
-
 }
 
 // Export in globalen Scope
