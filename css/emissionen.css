@@ -1,50 +1,19 @@
-#tableControls .dataTables_length label,
-#tableControls .dataTables_filter label {
-  display: flex;
-  align-items: center;
-  margin-bottom: 0;
-  gap: 0.5rem;
-}
-#tableControls select,
-#tableControls input[type="search"] {
-  height: 2rem;
-  padding: 0.25rem 0.5rem;
-}
-.dataTables_paginate {
-  display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-top: 0.5rem;
-}
-.dataTables_paginate a {
-  display: inline-block;
-  padding: 0.375rem 0.75rem;
-  font-size: 0.875rem;
-  line-height: 1.5;
-  color: #0d6efd;
-  text-decoration: none;
-  background-color: #fff;
-  border: 1px solid #dee2e6;
-  border-radius: 0.25rem;
-}
-.dataTables_paginate a:hover {
-  background-color: #e9ecef;
-}
-.dataTables_paginate a.current {
-  background-color: #0d6efd;
-  color: #fff;
-  border-color: #0d6efd;
-  font-weight: bold;
-}
+/* -----------------------------------------------
+   Tabellenlayout Emissionen
+------------------------------------------------- */
+
+/* Stellt sicher, dass Tabelle über volle Breite geht,
+   feste Spaltenbreiten und keine automatische Anpassung */
 #emissionenTabelle {
   display: table;
   width: 100%;
-  table-layout: fixed;
+  table-layout: fixed;         /* Spaltenbreite über HTML bestimmt */
   margin-left: 0;
   margin-right: 0;
 }
+
+/* Stellt sicher, dass Tabellenzellen nicht umbrechen,
+   lange Inhalte werden durch „…“ gekürzt */
 #emissionenTabelle th,
 #emissionenTabelle td {
   white-space: nowrap;
@@ -54,20 +23,15 @@
   vertical-align: middle;
   border: 0.0625rem solid #dee2e6;
   min-width: 5ch;
-  text-align: left;
+  text-align: left; 
 }
-#emissionenTabelle th:nth-child(1),
-#emissionenTabelle td:nth-child(1) {
-  text-align: left;
-}
-#emissionenTabelle th:nth-child(2),
-#emissionenTabelle td:nth-child(2) {
-  text-align: left;
-}
-#emissionenTabelle th:nth-child(3),
-#emissionenTabelle td:nth-child(3) {
-  text-align: right;
-}
+
+/* -----------------------------------------------
+   Navigation links
+------------------------------------------------- */
+
+/* Gestaltung des lokalen Navigationsblocks: visuell abgesetzt,
+   optisch wie ein „Sticky-Sidebar“-Modul */
 #lokaleNavigation {
   position: static;
   margin-bottom: 2rem;
@@ -77,19 +41,12 @@
   border-radius: 0.5rem;
 }
 
-#lokaleNavigation .nav-link.active {
-  background-color: #0d6efd;
-  color: #fff;
-  border-radius: 0.375rem;
-  font-weight: bold;
-}
 
-
-
+/* Sorgt für genug Platz unterhalb der Tabellenbereiche,
+   wenn keine Scroll-Anchor gesetzt sind */
 #emissionen-ranking,
 #emissionen-uebersicht {
   height: auto;
-  /*scroll-margin-top: 2rem; */
+  /*scroll-margin-top: 2rem; */ /* bei Sticky-Header relevant  */
   padding-bottom: 2rem;
 }
-

@@ -1,4 +1,4 @@
-<section id="emissionen" class="view hidden" data-bs-spy="scroll" data-bs-target="#lokaleNavigation" data-bs-offset="80" tabindex="0">
+<section id="emissionen" class="view hidden"  tabindex="0">
   <div class="fade-container">
     <nav id="lokaleNavigation" class="scrollspy-nav d-md-block">
       <ul class="nav flex-column">
@@ -12,23 +12,13 @@
       <div class="container">
         <h2>Emissionen nach Unternehmen & Ländern</h2>
         <p class="text-muted"><strong>Hinweis:</strong> Die folgende Tabelle zeigt ausgewählte Unternehmen mit hohen CO₂-Emissionen und deren Sitzland.</p>
-        <div id="tableControls" class="d-flex flex-wrap align-items-center gap-4 mb-3">
-          <div id="customLengthFilter" class="d-flex align-items-center gap-2"></div>
-          <div id="customSearchFilter" class="d-flex align-items-center gap-2"></div>
-          <div class="d-flex align-items-center gap-2">
-            <label for="landFilter" class="mb-0">Filtern nach Land:</label>
-            <select id="landFilter" class="form-select form-select-sm w-auto">
-              <option value="">Alle Länder</option>
-            </select>
-          </div>
-        </div>
+
         <table class="table table-striped" id="emissionenTabelle">
           <thead>
             <tr><th>Land</th><th>Unternehmen</th><th>Emissionen (Mt CO₂)</th></tr>
           </thead>
           <tbody></tbody>
-        </table>
-        <div id="tablePaginationBottom" class="d-flex justify-content-start mt-2"></div>
+        </table>       
       </div>
     </section>
 

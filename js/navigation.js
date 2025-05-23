@@ -24,7 +24,7 @@ function initNavigation() {
       if (currentSection && currentSection !== targetSection) {
         const currentFade = currentSection.querySelector('.fade-container');
         if (currentFade) currentFade.classList.remove('visible');
-        currentSection.classList.remove('active');
+            currentSection.classList.remove('active');
         currentSection.classList.add('hidden');
       }
 
@@ -34,6 +34,11 @@ function initNavigation() {
       const main = document.getElementById('main-container');
       if (targetId === 'emissionen') {
         main.classList.add('emissionen-mode');
+        // Sicherstellen, dass erst jetzt initEmissionen aufgerufen wird
+        if (!window._emissionenInitialized) {
+          window.initEmissionen();
+          window._emissionenInitialized = true;
+        }
       } else {
         main.classList.remove('emissionen-mode');
       }
@@ -50,8 +55,7 @@ function initNavigation() {
           const scrollContainer = targetSection.querySelector('.fade-container');
           if (scrollContainer) {
             bootstrap.ScrollSpy.getOrCreateInstance(scrollContainer, {
-              target: '#lokaleNavigation',
-              offset: 80
+              target: '#lokaleNavigation'
             });
           }
         }

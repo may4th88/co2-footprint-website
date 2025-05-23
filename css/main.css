@@ -15,11 +15,14 @@ html {
     visibility: hidden;
     transition: opacity 0.2s ease, visibility 0.2s ease;
   }
+
   .view.active,
   .view:not(.hidden):not(.active) {
     opacity: 1;
     visibility: visible;
   }
+
+
 
   .fade-container {
     opacity: 0;
