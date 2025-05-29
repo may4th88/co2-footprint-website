@@ -13,23 +13,12 @@ html {
   .view {
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.2s ease, visibility 0.2s ease;
+    transition: opacity 0.8s ease, visibility 0.8s ease;
   }
 
-  .view.active,
-  .view:not(.hidden):not(.active) {
+  .view.active{
     opacity: 1;
     visibility: visible;
-  }
-
-
-
-  .fade-container {
-    opacity: 0;
-    transition: opacity 0.2s ease;
-  }
-  .fade-container.visible {
-    opacity: 1;
   }
 
   nav a {
@@ -53,7 +42,7 @@ html {
  /* overflow: hidden; */
 }
 
-#main-container.emissionen-mode #emissionen .fade-container {
+#main-container.emissionen-mode #emissionen {
   height: 100%;
   overflow-y: auto;
 }

@@ -7,8 +7,8 @@
   }
 
   /* Einrückung für beide Views */
-  #emissionen .fade-container,
-  #rankingView .fade-container {
+  #emissionen,
+  #rankingView {
     margin-left: clamp(12rem, 15vw, 18rem);
     margin-right: 0;
   }
@@ -19,8 +19,8 @@
     text-align: right;
   }
 
-  [dir="rtl"] #emissionen .fade-container,
-  [dir="rtl"] #rankingView .fade-container {
+  [dir="rtl"] #emissionen,
+  [dir="rtl"] #rankingView{
     margin-left: 0;
     margin-right: clamp(12rem, 15vw, 18rem);
   }

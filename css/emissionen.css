@@ -12,19 +12,6 @@
   margin-right: 0;
 }
 
-/* Stellt sicher, dass Tabellenzellen nicht umbrechen,
-   lange Inhalte werden durch „…“ gekürzt */
-#emissionenTabelle th,
-#emissionenTabelle td {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  padding: 0.5rem;
-  vertical-align: middle;
-  border: 0.0625rem solid #dee2e6;
-  min-width: 5ch;
-  text-align: left; 
-}
 
 /* -----------------------------------------------
    Navigation links

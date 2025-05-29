@@ -111,7 +111,7 @@ function initEmissionen() {
       });
 
       // Mache den Bereich sichtbar (z.B. nach Fading einblenden)
-      document.querySelector('#emissionen .fade-container')?.classList.add('visible');
+      document.querySelector('#emissionen')?.classList.add('visible');
     })
     .catch(error => console.error("Fehler beim Laden der Emissionsdaten:", error));
 
