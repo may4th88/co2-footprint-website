@@ -1,29 +1,37 @@
+// Hauptinitialisierungsfunktion für die Emissionen-Seite.
+// Sie wird beim Aufruf durch das Navigationssystem geladen.
 function initEmissionen() {
-  // Lade die Emissionsdaten für Unternehmen und Länder.
-  // fetch() ruft die JSON-Datei ab, response => response.json() konvertiert den Response-Body in ein JavaScript-Objekt (JSON), da fetch nur das rohe Response-Objekt liefert.
+  // Lade die Emissionsdaten für Unternehmen und Länder aus einer JSON-Datei.
+  // fetch() ruft die Datei asynchron ab.
+  // response.json() konvertiert den HTTP-Response in ein JavaScript-Objekt.
   fetch('data/emissionen.json')
     .then(response => response.json())
     .then(data => {
-      const rows = [];
+      // Wandle die Daten in ein Array von Arrays um (für DataTables erforderlich).
+      // Jeder Eintrag besteht aus: [Land, Unternehmen, Emissionen].
+      const rows = data.map(item => [item.land, item.unternehmen, item.emissionen]);
 
-      // Sammle die Daten in ein Array von Arrays (für DataTables), jedes Element besteht aus Land, Unternehmen, Emissionen.
-      data.forEach(item => {
-        rows.push([item.land, item.unternehmen, item.emissionen]);
-      });
-
-      // Initialisiere die DataTable mit Bootstrap-Styling und deutscher Sprache.
+      // Initialisiere DataTable mit jQuery und konfiguriere Bootstrap 5 + Responsive Layout.
       const table = $('#emissionenTabelle').DataTable({
+        // Deaktiviere automatische Spaltenbreite
         autoWidth: false,
+
+        // Setze die Datensätze aus JSON
         data: rows,
+
+        // Aktiviere Responsive-Erweiterung (macht Tabelle u.a. auf kleinen Geräten einklappbar)
         responsive: true,
+
+        // Definiere Spalteninformationen
         columns: [
           { title: "Land", width: "20%" },
           { title: "Unternehmen", width: "50%" },
-          { title: "Emissionen (Mt CO₂)", width: "30%", className: "text-end" }
+          { title: "Emissionen (Mt CO₂)", width: "30%", className: "text-end" } // Rechtsbündig für Zahlen
         ],
+
+        // Lokalisierung: Deutsch
         language: {
           url: "https://cdn.datatables.net/plug-ins/2.3.1/i18n/de-DE.json",
-          // Ersetze die Standard-Beschriftung der Pagination durch Symbole für ein kompakteres Layout.
           paginate: {
             first: '«',
             previous: '‹',
@@ -31,41 +39,46 @@ function initEmissionen() {
             last: '»'
           }
         },
-        // Definiere den DOM-Aufbau der Tabelle: oben Zeilenanzahl, eigener Filter und Suche; unten Info und Pagination.
-        dom:
-          '<"top d-flex flex-wrap gap-4 align-items-center justify-content-between mb-3"l<"land-filter">f>' +
-          '<"datatable-scroll"rt>' +
-          '<"bottom d-flex flex-wrap justify-content-between align-items-center mt-3"ip>',
 
-        // Nach Initialisierung führe folgendes Setup aus:
+        // Layoutstruktur für Integrierung des benutzerdefinierten Filters
+        layout: {
+          top: [
+            'pageLength',
+            function () {
+              const wrapper = document.createElement('div');
+              wrapper.className = 'd-flex align-items-center gap-2';
+              wrapper.innerHTML = `
+                <label for="filterField" class="mb-0">Filtern nach:</label>
+                <select id="filterField" class="form-select form-select-sm w-auto">
+                  <option value="0">Land</option>
+                  <option value="1">Unternehmen</option>
+                </select>
+                <select id="filterValue" class="form-select form-select-sm w-auto">
+                  <option value="">Alle</option>
+                </select>
+              `;
+              return wrapper;
+            },
+            'search'
+          ],
+          topStart: null,
+          topEnd: null,
+          bottomStart: 'info',
+          bottomEnd: 'paging'
+        },
+
+
+        // Wird nach dem Aufbau der Tabelle aufgerufen (z.B. für benutzerdefinierte UI-Komponenten)
         initComplete: function () {
-          // Erzeuge ein benutzerdefiniertes Filter-Element mit zwei Dropdowns:
-          // eins zur Auswahl des Filterfelds (Land oder Unternehmen), eins zur Auswahl des konkreten Werts.
-          const filterWrapper = document.createElement('div');
-          filterWrapper.className = 'd-flex align-items-center gap-2';
-          filterWrapper.innerHTML = `
-            <label for="filterField" class="mb-0">Filtern nach:</label>
-            <select id="filterField" class="form-select form-select-sm w-auto">
-              <option value="0">Land</option>
-              <option value="1">Unternehmen</option>
-            </select>
-            <select id="filterValue" class="form-select form-select-sm w-auto">
-              <option value="">Alle</option>
-            </select>
-          `;
-
-          // Füge das Filter-Element an der vorgesehenen Stelle im DataTables-Wrapper ein.
-          const target = document.querySelector('#emissionenTabelle_wrapper .land-filter');
-          if (target) target.appendChild(filterWrapper);
+          const api = this.api();
 
           // Referenzen auf die beiden Dropdowns
           const filterField = document.getElementById('filterField');
           const filterValue = document.getElementById('filterValue');
 
-          // Fülle das zweite Dropdown dynamisch basierend auf der gewählten Spalte (Land = 0, Unternehmen = 1).
-          // Dies geschieht über die Erstellung eines Sets, das durch Mapping aller Werte in der Spalte erzeugt wird, um Duplikate zu entfernen.
+          // Hilfsfunktion: Fülle das zweite Dropdown (Werte) je nach Spaltenauswahl
           function updateFilterOptions(columnIndex) {
-            const unique = new Set(rows.map(r => r[columnIndex]));
+            const unique = new Set(api.column(columnIndex).data().toArray());
             filterValue.innerHTML = '<option value="">Alle</option>';
             Array.from(unique).sort().forEach(val => {
               const option = document.createElement('option');
@@ -75,38 +88,40 @@ function initEmissionen() {
             });
           }
 
-          // Wenn der Benutzer das Feld ändert, lösche alle Filter und befülle das neue Dropdown entsprechend.
+          // Ändere die zu filternde Spalte (Land/Unternehmen)
           filterField.addEventListener('change', () => {
             const col = parseInt(filterField.value);
-            table.column(0).search('');
-            table.column(1).search('');
-            updateFilterOptions(col);
+            api.column(0).search(''); // Reset Spalte 0
+            api.column(1).search(''); // Reset Spalte 1
+            updateFilterOptions(col); // Neue Werte setzen
+            filterValue.value = '';
+            api.draw();
           });
 
-          // Wenn der Benutzer einen Filterwert auswählt, filtere die entsprechende Spalte.
+          // Filtere die gewählte Spalte nach dem ausgewählten Wert
           filterValue.addEventListener('change', () => {
             const col = parseInt(filterField.value);
-            table.column(col).search(filterValue.value).draw();
+            const value = filterValue.value;
+            api.column(col).search(value).draw();
           });
 
-          // Initial befüllen des Dropdowns mit Ländern
+          // Initial: Lade Länder in Dropdown
           updateFilterOptions(0);
         }
       });
 
-      // Zeige die Sektion mit Fade-In Effekt an, sobald alles geladen ist.
+      // Mache den Bereich sichtbar (z.B. nach Fading einblenden)
       document.querySelector('#emissionen .fade-container')?.classList.add('visible');
     })
     .catch(error => console.error("Fehler beim Laden der Emissionsdaten:", error));
 
-  // Lade das Länderranking aus einer separaten JSON-Datei und fülle die zweite Tabelle.
+  // Lade zweite Tabelle: Länderranking
   fetch('data/laender_ranking_2023.json')
     .then(response => response.json())
     .then(rankingData => {
       const daten = rankingData.daten;
       const tableBody = document.querySelector('#laenderRanking tbody');
 
-      // Iteriere durch alle Länder und erstelle je eine Tabellenzeile
       daten.forEach(item => {
         const row = document.createElement('tr');
         row.innerHTML = `
@@ -121,5 +136,5 @@ function initEmissionen() {
     .catch(error => console.error("Fehler beim Laden des Länder-Rankings:", error));
 }
 
-// Exportiere die Funktion global, damit sie durch Navigation bei SPA-Seitenaufruf aufgerufen werden kann.
+// Exportiere die Funktion global, sodass sie nach dem Laden der Partials aufgerufen werden kann
 window.initEmissionen = initEmissionen;
