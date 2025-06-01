@@ -1,11 +1,17 @@
 #home {
     min-height: calc(100vh - 8rem);
     overflow: hidden;
-    display: flex;
+   /* display: flex; */
     align-items: center;
     justify-content: center;
-    position: relative;
+   /* position: relative; */
   }
+  
+  /* Damit Home verschwindet bei weiterer Navigation */
+  #home.hidden {
+  display: none !important;
+}
+
   .gif-background {
     position: absolute;
     top: 0;

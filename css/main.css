@@ -3,23 +3,24 @@ html {
     scrollbar-gutter: stable;
     font-size: 16px;
   }
-  body {
-    margin: 0;
-    padding: 0;
-  }
-  .hidden {
-    display: none !important;
-  }
-  .view {
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.8s ease, visibility 0.8s ease;
-  }
 
-  .view.active{
-    opacity: 1;
-    visibility: visible;
-  }
+.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  transition: opacity 0.6s ease, visibility 0.6s ease;
+}
+
+.view {
+  opacity: 1;
+  visibility: visible;
+  position: relative;
+  z-index: 1;
+  transition: opacity 0.6s ease, visibility 0.6s ease;
+}
 
   nav a {
     text-decoration: none;
@@ -29,24 +30,6 @@ html {
   nav a:hover {
     text-decoration: underline;
   }
-
-
-/* Die Seite Emissionen braucht einen fixen Layer um einen sticky Footer zu setzen*/
-#main-container.emissionen-mode {
-  height: calc(100vh - 8rem); /* Höhe Footer */
-  /* overflow: hidden; */
-}
-
-#main-container.emissionen-mode #emissionen {
-  height: 100%;
- /* overflow: hidden; */
-}
-
-#main-container.emissionen-mode #emissionen {
-  height: 100%;
-  overflow-y: auto;
-}
-
 
 
   /* Entwicklungsmarkierungen */

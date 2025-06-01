@@ -1,8 +1,7 @@
-// Initialisiert die Navigation der Webanwendung
 function initNavigation() {
   console.log("initNavigation gestartet");
 
-  // === [1] Dropdown-Menü für "Emissionen" ===
+  // === [1] Dropdown-Menü für "Emissionen" (mobil)
   const toggle = document.getElementById('emissionenToggle');
   if (toggle) {
     toggle.addEventListener('click', function (e) {
@@ -12,83 +11,68 @@ function initNavigation() {
     });
   }
 
-  // === [2] Hauptnavigation: Alle Links mit data-target-Attribut ===
+  // === [2] Navigation
   document.querySelectorAll('.nav-link[data-target], .dropdown-item[data-target]').forEach(link => {
-    console.log("Eventlistener gesetzt für", link);
-
-    link.addEventListener('click', async (event) => {
-      console.log("Klick erkannt auf", link);
+    link.addEventListener('click', (event) => {
       event.preventDefault();
 
       const targetId = link.getAttribute('data-target');
       if (!targetId) return;
 
       const targetSection = document.getElementById(targetId);
-      const currentSection = document.querySelector('.view.active');
+      const currentSection = document.querySelector('.view:not(.hidden)');
 
       if (currentSection && currentSection !== targetSection) {
-        currentSection.classList.remove('active');
-        currentSection.classList.add('hidden');
-      }
+      currentSection.classList.add('hidden');
+      currentSection.classList.remove('view');
 
-      // Schritt 1: .hidden entfernen, sichtbar aber noch nicht .active
+      // 👇 Untersections von Emissionen ebenfalls verstecken
+      if (currentSection.id === 'emissionen') {
+        ['emissionen-uebersicht', 'emissionen-ranking'].forEach(id => {
+          const sub = document.getElementById(id);
+          if (sub) {
+            sub.classList.add('hidden');
+            sub.classList.remove('view');
+          }
+        });
+      }
+    }
+
+      targetSection.classList.add('view'); 
       targetSection.classList.remove('hidden');
 
-      // === [3] Spezialfall: Emissionen-Initialisierung
-      const main = document.getElementById('main-container');
-      const isEmissionen = targetId === 'emissionen';
+      // === Emissionen init (NACH Anzeige)
+      if (targetId === 'emissionen') {
+        // Zeige Untersektionen explizit
+        ['emissionen-uebersicht', 'emissionen-ranking'].forEach(id => {
+          const sub = document.getElementById(id);
+          if (sub) {
+            sub.classList.remove('hidden');
+            sub.classList.add('view');
+          }
+        });
 
-      if (isEmissionen) {
-        main.classList.add('emissionen-mode');
         if (!window._emissionenInitialized) {
           window.initEmissionen();
           window._emissionenInitialized = true;
         }
-      } else {
-        main.classList.remove('emissionen-mode');
       }
+  
 
-      // Schritt 2: .active setzen & ScrollSpy starten
-      requestAnimationFrame(() => {
-        targetSection.classList.add('active');
-
-        if (isEmissionen) {
-          const spyTarget = document.getElementById('emissionen');
-          requestAnimationFrame(() => {
-            const oldSpy = bootstrap.ScrollSpy.getInstance(spyTarget);
-            if (oldSpy) oldSpy.dispose();
-
-            new bootstrap.ScrollSpy(spyTarget, {
-              target: '#scrollspyNav',
-              offset: 10
-            });
-
-            // triggert sofortige Prüfung:
-            spyTarget.dispatchEvent(new Event('scroll'));
-          });
-        }
-      });
-
-      // === [6] Menü schließen (mobil)
-      const navbarCollapse = document.querySelector('.navbar-collapse');
-      if (navbarCollapse && navbarCollapse.classList.contains('show')) {
+      // === Menü schließen nach Auswahl Ziel (mobil)
+     const navbarCollapse = document.querySelector('.navbar-collapse');
+      if (navbarCollapse?.classList.contains('show')) {
         const bsCollapse = bootstrap.Collapse.getInstance(navbarCollapse) || new bootstrap.Collapse(navbarCollapse);
         bsCollapse.hide();
       }
 
-      // === [7] Emissionen-Submenü schließen
-      const submenu = document.getElementById('emissionenSubmenu');
-      if (submenu && submenu.classList.contains('show')) {
-        submenu.classList.remove('show');
-      }
     });
   });
 
-  // === [8] Lokale Navigation innerhalb der Emissionen-Sektion ===
+  // === [3] Lokale Navigation in Emissionen
   document.querySelectorAll('#lokaleNavigation a').forEach(link => {
     link.addEventListener('click', event => {
       event.preventDefault();
-
       const targetId = link.getAttribute('href').substring(1);
       const targetElement = document.getElementById(targetId);
       if (targetElement) {
@@ -98,5 +82,4 @@ function initNavigation() {
   });
 }
 
-// === [10] Globale Registrierung ===
 window.initNavigation = initNavigation;

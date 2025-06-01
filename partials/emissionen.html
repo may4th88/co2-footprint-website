@@ -1,34 +1,56 @@
-<section id="emissionen" class="view hidden"  tabindex="0">
+<section id="emissionen"
+         class="hidden"
+         tabindex="0"
+         data-bs-spy="scroll"
+         data-bs-target="#scrollspyNav"
+         data-bs-offset="10"
+         data-bs-root-margin="0px 0px -40%"
+         style="max-height: 100vh; overflow-y: auto; position: relative;">
   <div>
-    <nav id="lokaleNavigation" class="scrollspy-nav d-md-block">
-      <ul class="nav flex-column">
-        <li class="nav-item"><a class="nav-link" href="#emissionen-uebersicht">Unternehmen & Länder</a></li>
-        <li class="nav-item"><a class="nav-link" href="#emissionen-ranking">Ländervergleich</a></li>
+    <!-- Lokale Navigation -->
+    <nav id="lokaleNavigation" class="scrollspy-nav d-md-block mb-4">
+      <ul class="nav flex-column" id="scrollspyNav">
+        <li class="nav-item">
+          <a class="nav-link" href="#emissionen-uebersicht">Unternehmen & Länder</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#emissionen-ranking">Ländervergleich</a>
+        </li>
       </ul>
     </nav>
 
-    <!-- Section für Unternehmen & Länder -->
-    <section id="emissionen-uebersicht" class="min-vh-100" >
+    <!-- Section: Unternehmen & Länder -->
+    <section id="emissionen-uebersicht" class="min-vh-100 hidden">
       <div class="container">
         <h2>Emissionen nach Unternehmen & Ländern</h2>
-        <p class="text-muted"><strong>Hinweis:</strong> Die folgende Tabelle zeigt ausgewählte Unternehmen mit hohen CO₂-Emissionen und deren Sitzland.</p>
-
+        <p class="text-muted">
+          <strong>Hinweis:</strong> Die folgende Tabelle zeigt ausgewählte Unternehmen mit hohen CO₂-Emissionen und deren Sitzland.
+        </p>
         <table class="table table-striped" id="emissionenTabelle">
           <thead>
-            <tr><th>Land</th><th>Unternehmen</th><th>Emissionen (Mt CO₂)</th></tr>
+            <tr>
+              <th>Land</th>
+              <th>Unternehmen</th>
+              <th>Emissionen (Mt CO₂)</th>
+            </tr>
           </thead>
           <tbody></tbody>
-        </table>       
+        </table>
       </div>
     </section>
 
-    <!-- Section für Ländervergleich -->
-    <section id="emissionen-ranking" class="min-vh-100">
+    <!-- Section: Ländervergleich -->
+    <section id="emissionen-ranking" class="min-vh-100 hidden">
       <div class="container">
         <h2>Ranking der Länder nach Gesamtemissionen</h2>
         <table class="table table-striped" id="laenderRanking">
           <thead>
-            <tr><th>Platz</th><th>Land</th><th>Emissionen (Mt CO₂)</th><th>%-Anteil an Gesamtemissionen</th></tr>
+            <tr>
+              <th>Platz</th>
+              <th>Land</th>
+              <th>Emissionen (Mt CO₂)</th>
+              <th>%-Anteil an Gesamtemissionen</th>
+            </tr>
           </thead>
           <tbody></tbody>
         </table>

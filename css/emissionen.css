@@ -1,24 +1,58 @@
 /* -----------------------------------------------
-   Tabellenlayout Emissionen
+   Emissionen-Container – ScrollSpy-fähig
 ------------------------------------------------- */
+#emissionen {
+  max-height: 100vh;
+  overflow-y: auto;
+  position: relative;
+  transition: opacity 0.6s ease, visibility 0.6s ease;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
 
-/* Stellt sicher, dass Tabelle über volle Breite geht,
-   feste Spaltenbreiten und keine automatische Anpassung */
-#emissionenTabelle {
-  display: table;
-  width: 100%;
-  table-layout: fixed;         /* Spaltenbreite über HTML bestimmt */
-  margin-left: 0;
-  margin-right: 0;
+#emissionen.view {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  z-index: 1;
+}
+
+
+
+/* -----------------------------------------------
+   Unterbereiche: Unternehmen & Ranking
+------------------------------------------------- */
+#emissionen-uebersicht,
+#emissionen-ranking {
+  min-height: 100vh;
+  padding-bottom: 4rem;
+  scroll-margin-top: 5rem;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.6s ease, visibility 0.6s ease;
+}
+
+#emissionen-uebersicht.hidden,
+#emissionen-ranking.hidden {
+  opacity: 0;
+  pointer-events: none;
 }
 
 
 /* -----------------------------------------------
-   Navigation links
+   DataTables Scrollbereiche
 ------------------------------------------------- */
+#emissionenTabelle_wrapper .dataTables_scrollBody,
+#laenderRanking_wrapper .dataTables_scrollBody {
+  max-height: 60vh;
+  overflow-y: auto;
+}
 
-/* Gestaltung des lokalen Navigationsblocks: visuell abgesetzt,
-   optisch wie ein „Sticky-Sidebar“-Modul */
+/* -----------------------------------------------
+   Lokale Navigation (Sidebar)
+------------------------------------------------- */
 #lokaleNavigation {
   position: static;
   margin-bottom: 2rem;
@@ -26,14 +60,4 @@
   padding: 1rem;
   border: 1px solid #dee2e6;
   border-radius: 0.5rem;
-}
-
-
-/* Sorgt für genug Platz unterhalb der Tabellenbereiche,
-   wenn keine Scroll-Anchor gesetzt sind */
-#emissionen-ranking,
-#emissionen-uebersicht {
-  height: auto;
-  /*scroll-margin-top: 2rem; */ /* bei Sticky-Header relevant  */
-  padding-bottom: 2rem;
 }
