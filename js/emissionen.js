@@ -16,18 +16,11 @@ function initEmissionen() {
         ],
         language: {
           url: "https://cdn.datatables.net/plug-ins/2.3.1/i18n/de-DE.json",
-          paginate: {
-            first: '«',
-            previous: '‹',
-            next: '›',
-            last: '»'
-          }
         },
 
         // Layoutstruktur für Integrierung des benutzerdefinierten Filters
         layout: {
-          top: [
-            'pageLength',
+          top: [       
             function () {
               const wrapper = document.createElement('div');
               wrapper.className = 'd-flex align-items-center gap-2';
@@ -87,6 +80,7 @@ function initEmissionen() {
           updateFilterOptions(0);
         }
       });
+
     // ScrollSpy sauber einmalig setzen
     // Repariert ScrollSpy, falls Bootstrap es nicht automatisch aktiviert hat
     const spyTarget = document.getElementById('emissionen');
