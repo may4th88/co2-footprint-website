@@ -31,6 +31,11 @@ function initNavigation() {
       targetSection.classList.add('view');
       targetSection.classList.remove('hidden');
 
+      // Nach jeder Navigation: Responsives Verhalten prüfen/auslösen (z. B. Menü zuklappen auf Mobilgeräten)
+      // Auch andere Views (nicht nur Emissionen) benötigen z. B. das Einklappen des Menüs
+      if (window.initResponsiveBehavior) window.initResponsiveBehavior();
+
+
       // === Spezialfall: Über-uns → Animationen neu starten
       if (targetId === 'ueber-uns' && currentSection.id !== 'ueber-uns') {
         const contentBlocks = document.querySelectorAll('#ueber-uns .animate__animated');
@@ -55,25 +60,18 @@ function initNavigation() {
             sub.classList.add('view');
           }
         });
+        
+
 
         // Einmalige Initialisierung der Emissionen-Logik
-        if (!window._emissionenInitialized) {
+      if (!window._emissionenInitialized) {
+        // Init verzögert ausführen – garantiert sichtbar
+        setTimeout(() => {
           window.initEmissionen();
           window._emissionenInitialized = true;
-        } 
+        }, 0);
       }
 
-      // === [2] Responsives Verhalten: Menü schließen nach Navigation (nur mobil)
-      const navbarCollapse = document.querySelector('.navbar-collapse');
-      if (navbarCollapse?.classList.contains('show')) {
-        const bsCollapse = bootstrap.Collapse.getInstance(navbarCollapse) || new bootstrap.Collapse(navbarCollapse);
-        bsCollapse.hide(); // Menü einklappen
-      }
-
-      // === Responsiv: Emissionen-Dropdown schließen (mobil)
-      const submenu = document.getElementById('emissionenSubmenu');
-      if (submenu?.classList.contains('show')) {
-        submenu.classList.remove('show');
       }
     });
   });
@@ -90,15 +88,8 @@ function initNavigation() {
     });
   });
 
-  // === [4] Responsiv: Dropdown-Menü für "Emissionen" (mobil)
-  const toggle = document.getElementById('emissionenToggle');
-  if (toggle) {
-    toggle.addEventListener('click', function (e) {
-      e.preventDefault();
-      const submenu = document.getElementById('emissionenSubmenu');
-      submenu.classList.toggle('show'); // Dropdown auf-/zuklappen
-    });
-  }
+
+
 }
 
 // Funktion global verfügbar machen

@@ -5,7 +5,7 @@
          data-bs-target="#scrollspyNav"
          data-bs-offset="10"
          data-bs-root-margin="0px 0px -40%"
-         style="max-height: 100vh; overflow-y: auto; position: relative;">
+         style="max-height: 100vh; overflow-y: auto">
   <div>
     <!-- Lokale Navigation -->
     <nav id="lokaleNavigation" class="scrollspy-nav d-md-block mb-4">
@@ -22,10 +22,28 @@
     <!-- Section: Unternehmen & Länder -->
     <section id="emissionen-uebersicht" class="min-vh-100 hidden">
       <div class="container">
-        <h2>Emissionen nach Unternehmen & Ländern</h2>
-        <p class="text-muted">
-          <strong>Hinweis:</strong> Die folgende Tabelle zeigt ausgewählte Unternehmen mit hohen CO₂-Emissionen und deren Sitzland.
-        </p>
+        <!-- Gemeinsame Überschrift -->
+        <h2>Emissionen nach Unternehmen &amp; Ländern</h2>
+
+        <!-- Hinweis-Icon: nur mobil -->
+        <div class="d-flex align-items-center justify-content-between flex-wrap d-md-none">
+          <button class="btn btn-outline-secondary btn-sm mb-2" type="button" id="toggleHinweisBtn" data-bs-toggle="collapse" data-bs-target="#hinweisText">
+            ℹ️ Hinweis
+          </button>
+        </div>
+
+        <!-- Hinweistext: mobil = einklappbar -->
+        <div class="collapse d-md-none" id="hinweisText">
+          <p class="text-muted small">Die folgende Tabelle zeigt ausgewählte Unternehmen mit hohen CO₂-Emissionen und deren Sitzland.</p>
+        </div>
+
+        <!-- Hinweistext: Desktop = dauerhaft sichtbar -->
+        <div class="d-none d-md-block" id="hinweisTextDesktop">
+          <p class="text-muted">
+            <strong>Hinweis:</strong> Die folgende Tabelle zeigt ausgewählte Unternehmen mit hohen CO₂-Emissionen und deren Sitzland.
+          </p>
+        </div>
+
         <table class="table table-striped" id="emissionenTabelle">
           <thead>
             <tr>
@@ -38,6 +56,7 @@
         </table>
       </div>
     </section>
+
 
     <!-- Section: Ländervergleich -->
     <section id="emissionen-ranking" class="min-vh-100 hidden">
