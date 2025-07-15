@@ -1,45 +1,44 @@
 #home {
-    min-height: calc(100vh - 8rem);
-    overflow: hidden;
-   /* display: flex; */
-    align-items: center;
-    justify-content: center;
-   /* position: relative; */
-  }
-  
-  /* Damit Home verschwindet bei weiterer Navigation */
-  #home.hidden {
+  min-height: calc(100vh - 8rem);
+  overflow: hidden;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Damit Home ausblendet bei weiterer Navigation */
+#home.hidden {
   display: none !important;
 }
 
-  .gif-background {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .gif-background img {
-    width: 90%;
-    height: 90%;
-    object-fit: cover;
-    opacity: 0.3;
-  }
-  .home-content h2 {
-    font-size: clamp(2rem, 6vw, 4rem);
-    font-weight: 900;
-    letter-spacing: -0.05em;
-    text-transform: uppercase;
-    color: #111;
-  }
-  .home-content p {
-    color: #000;
-    font-weight: 500;
-  }
-  
+.gif-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.gif-background img {
+  width: 90%;
+  height: 90%;
+  object-fit: cover;
+  opacity: 0.3;
+}
+
+.home-content h2 {
+  font-size: clamp(2rem, 6vw, 4rem);
+  font-weight: 900;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+  color: #111;
+}
+
+.home-content p {
+  color: #000;
+  font-weight: 500;
+}

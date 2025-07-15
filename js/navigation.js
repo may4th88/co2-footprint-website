@@ -1,14 +1,14 @@
 function initNavigation() {
 
   // === [1] Navigation zwischen Hauptseiten
-  document.querySelectorAll('.nav-link[data-target], .dropdown-item[data-target]').forEach(link => {
+  document.querySelectorAll('.nav-link[data-target]').forEach(link => {
     link.addEventListener('click', (event) => {
 
       const targetId = link.getAttribute('data-target'); // Zielbereich auslesen
       if (!targetId) return;
 
       const targetSection = document.getElementById(targetId); // Ziel-Element
-     /* const currentSection = document.querySelector('.view:not(.hidden)'); */ // Aktuell sichtbarer Bereich
+      /* const currentSection = document.querySelector('.view:not(.hidden)'); */ // Aktuell sichtbarer Bereich
       const currentSection = document.querySelector('.view:not(.hidden)');
       // Aktuellen Bereich ausblenden
       if (currentSection && currentSection !== targetSection) {
@@ -35,7 +35,7 @@ function initNavigation() {
       // Auch andere Views (nicht nur Emissionen) benötigen z. B. das Einklappen des Menüs
       if (window.initResponsiveBehavior) window.initResponsiveBehavior();
 
-
+      
       // === Spezialfall: Über-uns → Animationen neu starten
       if (targetId === 'ueber-uns' && currentSection.id !== 'ueber-uns') {
         const contentBlocks = document.querySelectorAll('#ueber-uns .animate__animated');
@@ -60,17 +60,15 @@ function initNavigation() {
             sub.classList.add('view');
           }
         });
-        
-
 
         // Einmalige Initialisierung der Emissionen-Logik
-      if (!window._emissionenInitialized) {
-        // Init verzögert ausführen – garantiert sichtbar
-        setTimeout(() => {
-          window.initEmissionen();
-          window._emissionenInitialized = true;
-        }, 0);
-      }
+        if (!window._emissionenInitialized) {
+          // Init verzögert ausführen
+          setTimeout(() => {
+            window.initEmissionen();
+            window._emissionenInitialized = true;
+          }, 0);
+        }
 
       }
     });
@@ -80,16 +78,13 @@ function initNavigation() {
   document.querySelectorAll('#lokaleNavigation a').forEach(link => {
     link.addEventListener('click', event => {
       event.preventDefault();
-      const targetId = link.getAttribute('href').substring(1); // ID ohne #
+      const targetId = link.getAttribute('href').substring(1);
       const targetElement = document.getElementById(targetId);
       if (targetElement) {
         targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     });
   });
-
-
-
 }
 
 // Funktion global verfügbar machen
